@@ -5,14 +5,22 @@ document.addEventListener('DOMContentLoaded', () => {
     //Fetch and display
     fetch('/breeds')
         .then(response => response.json())
-        .then(breedNames => {
-            breedNames.forEach(breedName => {
+        .then(breedInfoArray => {
+            breedInfoArray.forEach(breedInfo => {
                 const breedItem = document.createElement('li');
-                breedItem.textContent = breedName;
+                breedItem.textContent = breedInfo.name;
+
+                // // hyperlink (placeholder for now)
+                // const breedLink = document.createElement('a');
+                // breedLink.href = '#'; //this is the placeholder
+                // breedLink.textContent = breedInfo.name;
+                // breedItem.appendChild(breedLink);
 
                 // Click event
                 breedItem.addEventListener('click', () => {
-                    fetch(`/breeds/${encodeURIComponent(breedName)}`)
+                    const breedId = breedInfo.id;
+
+                    fetch(`/breeds/${encodeURIComponent(breedId)}`)
                         .then(response => response.json())
                         .then(breedInfo => {
                             //display

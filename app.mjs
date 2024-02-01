@@ -27,10 +27,13 @@ app.get('/breeds', async (req, res) => {
             throw new Error('Response data is not an array');
         }
 
-        //extract breed names from data
-        const breedNames = data.map((breed) => breed.attributes.name);
+        //extract breed names and ID from data
+        const breedInfoArray = data.map((breed) => ({
+            name: breed.attributes.name,
+            id: breed.id,
+        }))
 
-        res.json(breedNames);
+        res.json(breedInfoArray);
     } catch (error) {
         console.error('Error:', error);
         res.status(500).send('Internal Server Error');
